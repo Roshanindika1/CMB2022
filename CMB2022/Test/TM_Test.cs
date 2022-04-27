@@ -12,30 +12,18 @@ namespace CMB2022.Tests
     [TestFixture]
     internal class TM_Test: CommonDrivers
     {
+          
         
-    
-        [OneTimeSetUp]
-        public void LoginFunction()
-        {
-            //open chrome webdriver//
 
-            mydriver = new ChromeDriver();
-            mydriver.Manage().Window.Maximize();
-
-            //login page object initialization and definition
-            Loginpage loginPageOb = new Loginpage();
-            loginPageOb.loginSteps(mydriver);
-
-            //Home page object initialization and definition
-            Homepage homePageOb = new Homepage();
-            homePageOb.gotoTMpage(mydriver);
-
-
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void CreateTM_Test()
         {
+           
+            //Home page object initialization and difinition
+            Homepage homePageOB = new Homepage();
+            homePageOB.gotoTMpage(mydriver);
+            
+            
             //TM page object initialization and definition
             TMpage tmPageOb = new TMpage();
             tmPageOb.CreateTM(mydriver);
@@ -43,28 +31,32 @@ namespace CMB2022.Tests
 
         }
 
-        [Test]
+        [Test ,Order(2)]
         public void EditTM_Test()
         {
+            //Home page object initialization and difinition
+            Homepage homePageOB = new Homepage();
+            homePageOB.gotoTMpage(mydriver);
+            
             //Edit TM
             TMpage tmPageOb = new TMpage();
-            tmPageOb.EditTM(mydriver);
+            tmPageOb.EditTM(mydriver, "dummy");
 
         }
 
-        [Test]
+        [Test, Order(3)]
         public void DeleteTM_Test()
         {
+            //Home page object initialization and difinition
+            Homepage homePageOB = new Homepage();
+            homePageOB.gotoTMpage(mydriver);
+            
             //Delete TM
             TMpage tmPageOb = new TMpage();
             tmPageOb.DeleteTM(mydriver);
         }
 
-        [TearDown]
-        public void CloseTestRun()
-        {
-
-        }
+        
 
     }
 }

@@ -60,5 +60,10 @@ namespace CMB2022.Utilities
         {
             throw new NotImplementedException();
         }
+
+       internal static void WaitForvisible(IWebDriver mydriver, string v1, string v2)
+       {
+         throw new NotImplementedException();
+       }
     }
 }

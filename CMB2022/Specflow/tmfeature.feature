@@ -5,7 +5,27 @@ I would like to create, edit and delete time and material records
 So that I can manage employees' time and materials successfully
 
 @tag1
-Scenario: [TM]
-	Given [context]
-	When [action]
-	Then [outcome]
+Scenario: Create time and material record with valid details
+	Given I logged in to turn up portal successfully
+	When I navigate to time and material page
+	When I create a new time and materail record
+	Then The record should be create successfully
+
+
+	Scenario Outline: Edit time and material record with valid details
+	Given I logged in to turn up portal successfully
+	When I navigate to time and material page
+	When I update '<Description>' on exsisting time and materail record
+	Then The record should have the updated '<Description>'
+
+	Examples:
+	| Description  |
+	| Time         |
+	| Material     |
+	| EditedRecord |
+
+
+
+	
+	
+			
