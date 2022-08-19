@@ -10,6 +10,14 @@ namespace CMB2022
     [Binding]
     public class Feature1StepDefinitions :CommonDrivers
     {
+
+        //Page object initialization
+        Loginpage loginPageOb = new Loginpage();
+        Homepage homePageOB = new Homepage();
+        TMpage tmPageOb = new TMpage();
+
+
+
         [Given(@"I logged in to turn up portal successfully")]
         public void GivenILoggedInToTurnUpPortalSuccessfully()
         {
@@ -19,7 +27,6 @@ namespace CMB2022
             mydriver.Manage().Window.Maximize();
 
             //login page object initialization and definition
-            Loginpage loginPageOb = new Loginpage();
             loginPageOb.loginSteps(mydriver);
 
 
@@ -29,7 +36,6 @@ namespace CMB2022
         public void WhenINavigateToTimeAndMaterialPage()
         {
             //Home page object initialization and difinition
-            Homepage homePageOB = new Homepage();
             homePageOB.gotoTMpage(mydriver);
                         
         }
@@ -38,7 +44,6 @@ namespace CMB2022
         public void WhenICreateANewTimeAndMaterailRecord()
         {
             //TM page object initialization and definition
-            TMpage tmPageOb = new TMpage();
             tmPageOb.CreateTM(mydriver);
 
 
@@ -47,11 +52,10 @@ namespace CMB2022
         [Then(@"The record should be create successfully")]
         public void ThenTheRecordShouldBeCreateSuccessfully()
         {
-            TMpage tmPageOB = new TMpage();
-            string newCode = tmPageOB.GetCode(mydriver);
-            string newMCode = tmPageOB.GetMCode(mydriver);
-            string newDescription = tmPageOB.GetActuaDescription(mydriver);
-            string newPrice = tmPageOB.GetactualPrice(mydriver);
+            string newCode = tmPageOb.GetCode(mydriver);
+            string newMCode = tmPageOb.GetMCode(mydriver);
+            string newDescription = tmPageOb.GetActuaDescription(mydriver);
+            string newPrice = tmPageOb.GetactualPrice(mydriver);
 
             Assert.That(newCode == "CMB2022", "Actual code and expected code do not match");
             Assert.That(newMCode == "M", "Actual Mcode and expected Mcode do not match");
@@ -60,24 +64,26 @@ namespace CMB2022
 
         }
 
-        [When(@"I update '([^']*)' on exsisting time and materail record")]
-        public void WhenIUpdateOnExsistingTimeAndMaterailRecord(string P0)
+        [When(@"I update '([^']*)','([^']*)' and '([^']*)' on exsisting time and materail record")]
+        public void WhenIUpdateAndOnExsistingTimeAndMaterailRecord(string P0, string P1, string P2)
         {
-            //TM page object initialization and definition
-            TMpage tmPageOb = new TMpage();
-            tmPageOb.EditTM(mydriver, P0);
+            tmPageOb.EditTM(mydriver, P0,P1,P2);
 
         }
 
-        [Then(@"The record should have the updated '([^']*)'")]
-        public void ThenTheRecordShouldHaveTheUpdated(string P0)
+        [Then(@"The record should have the updated '([^']*)','([^']*)' and '([^']*)'")]
+        public void ThenTheRecordShouldHaveTheUpdatedAnd(string P0, string P1, string P2 )
         {
-            TMpage tmPageOB = new TMpage();
-            string newEditeddescription = tmPageOB.GetActuaDescription(mydriver);
-            Assert.That(newEditeddescription == P0, "Actual description and expected description do not match");
+            string editeddescription = tmPageOb.getediteddescription(mydriver);
+            string editedcode = tmPageOb.geteditedcode(mydriver);
+            string editedprice = tmPageOb.geteditedprice(mydriver);
 
+            Assert.That(editeddescription == P0, "Edited description and expected description does not match");
+            Assert.That(editedcode == P1, "Edited code and expected code does not match");
+            Assert.That(editedprice == P2, "Edited price and expected price does not match");
 
         }
+
 
     }
 }

@@ -40,7 +40,7 @@ namespace CMB2022.Tests
             
             //Edit TM
             TMpage tmPageOb = new TMpage();
-            tmPageOb.EditTM(mydriver, "dummy");
+            tmPageOb.EditTM(mydriver, "dummy","dummy2","dummy3");
 
         }
 

@@ -104,7 +104,7 @@ namespace CMB2022.Pages
         }
 
 
-        public void EditTM(IWebDriver mydriver, string mydescription)
+        public void EditTM(IWebDriver mydriver, string mydescription, string code, string nprice)
         {
             //wait until entire TM page is displayed
             Wait.WaitForvisible(mydriver, "Xpath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]");
@@ -120,7 +120,7 @@ namespace CMB2022.Pages
                 //Click on edit button
                 IWebElement editButton = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
                 editButton.Click();
-                                
+
             }
             else
             {
@@ -130,21 +130,21 @@ namespace CMB2022.Pages
             //Edit code
             IWebElement codeTextBox = mydriver.FindElement(By.Id("Code"));
             codeTextBox.Clear();
-            codeTextBox.SendKeys("Edited CMB2022");
+            codeTextBox.SendKeys(code);
 
             // Identify the Description textbox and input 
             IWebElement description = mydriver.FindElement(By.Id("Description"));
             description.Clear();
-            description.SendKeys("Edited CMB2022");
+            description.SendKeys(mydescription);
 
             // Identify and input Price textbox
             IWebElement priceTag = mydriver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));
             priceTag.Click();
-            
+
             IWebElement price = mydriver.FindElement(By.Id("Price"));
             price.Clear();
             priceTag.Click();
-            price.SendKeys("200");
+            price.SendKeys(nprice);
 
             // IDentify and save
             IWebElement saveButton = mydriver.FindElement(By.Id("SaveButton"));
@@ -157,20 +157,33 @@ namespace CMB2022.Pages
             gotoLastPageButton.Click();
 
             //Check if the record create is present and has the expected value
-            IWebElement actualCode = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
-            IWebElement actualMCode = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[2]"));
-            IWebElement actualDescription = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
-            IWebElement actualPrice = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[4]"));
-
-
-            //Option 1
-            Assert.That(actualCode.Text == "Edited CMB2022", "Actual Code and expected code not match");
-            Assert.That(actualMCode.Text == "M", "Actual Material code and expected code not match");
-            Assert.That(actualDescription.Text == "Edited CMB2022", "Actual Description and expected description not match");
-            Assert.That(actualPrice.Text == "$200", "Actual Price and expected Price not match");
 
 
         }
+
+
+        public string getediteddescription(IWebDriver mydriver)
+        {
+            IWebElement actualDescription = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
+            return actualDescription.Text;
+        }
+
+        public string geteditedcode(IWebDriver mydriver)
+        {
+            IWebElement actualCode = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            return actualCode.Text;
+
+        }
+
+        
+        public string geteditedprice (IWebDriver mydriver)
+        {
+            IWebElement actualPrice = mydriver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[4]"));
+            return actualPrice.Text;
+        }
+
+        //Option 1
+        
 
         public void DeleteTM(IWebDriver mydriver)
         {

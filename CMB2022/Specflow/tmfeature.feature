@@ -15,14 +15,14 @@ Scenario: Create time and material record with valid details
 	Scenario Outline: Edit time and material record with valid details
 	Given I logged in to turn up portal successfully
 	When I navigate to time and material page
-	When I update '<Description>' on exsisting time and materail record
-	Then The record should have the updated '<Description>'
+	When I update '<Description>','<Code>' and '<Price>' on exsisting time and materail record
+	Then The record should have the updated '<Description>','<Code>' and '<Price>'
 
 	Examples:
-	| Description  |
-	| Time         |
-	| Material     |
-	| EditedRecord |
+	| Description  | Code     | Price |
+	| Time         | Roshan   | 100   |
+	| Material     | KEyboard | 200   |
+	| EditedRecord | Mouse    | 300   |
 
 
 
